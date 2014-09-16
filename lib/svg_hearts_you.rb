@@ -1,3 +1,15 @@
+require 'nokogiri'
+
 module SvgHeartsYou
-  # Your code goes here...
+  def svg_inline(file)
+
+  end
+
+  def svg_symbol
+
+  end
+
+  def svg_use
+
+  end
 end
