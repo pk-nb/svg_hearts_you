@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="64" height="52" viewBox="0, 0, 64, 52">
+  <g id="sapphire" transform="translate(-0, -0)">
+    <g>
+      <path d="M32,52 L64,24 L48,0 L16,0 L0,24 z" fill="#5855A3"/>
+      <path d="M32,52 L48,24 L16,24 L32,52 z" fill="#7676BA"/>
+      <path d="M32,0 L16,24 L48,24 L32,0 z" fill="#B0B3DE"/>
+      <path d="M16,24 L16,0 L32,0 L16,24 z" fill="#919CD5"/>
+      <path d="M32,0 L48,24 L48,0 L32,0 z" fill="#919CD5"/>
+      <path d="M16,0 L16,24 L0,24 L16,0 z" fill="#7071C1"/>
+      <path d="M48,24 L64,24 L48,0 L48,24 z" fill="#7071C1"/>
+    </g>
+  </g>
+</svg>
