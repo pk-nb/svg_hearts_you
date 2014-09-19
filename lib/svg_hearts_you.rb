@@ -15,11 +15,10 @@ module SvgHeartsYou
     yield(configuration)
   end
 
-  def SvgHeartsYou.svg_inline(filename, options={})
+  def self.svg_inline(filename, options={})
     raise 'svg_path is not set' if configuration.svg_path.nil?
 
     path = File.join configuration.svg_path, filename
-
     doc = Nokogiri::HTML::DocumentFragment.parse(File.read path)
     svg = doc.at_css 'svg'
     options.each do |key, value|
@@ -29,11 +28,28 @@ module SvgHeartsYou
     svg.to_html
   end
 
-  def SvgHeartsYou.svg_symbol
-    raise 'svg_path is not set' if configuration.nil?
+  def self.svg_symbol
+    raise 'svg_path is not set' if configuration.svg_path.nil?
+    #
+    # path = File.join configuration.svg_path, filename
+    # doc = Nokogiri::HTML::DocumentFragment.parse(File.read path)
+    #
+    # svg = doc.at_css 'svg'
+
   end
 
-  def SvgHeartsYou.svg_use
-    raise 'svg_path is not set' if configuration.nil?
+  def self.svg_use(id, options={})
+    doc = Nokogiri::HTML::DocumentFragment.parse <<-YAYUSE
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" >
+      <use xlink:href="##{id}">
+    </svg>
+    YAYUSE
+
+    svg = doc.at_css 'svg'
+    options.each do |key, value|
+      svg[key.to_s] = value
+    end
+
+    svg.to_html
   end
 end

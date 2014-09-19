@@ -11,8 +11,27 @@ RSpec.describe SvgHeartsYou do
       end
     end
 
-    it 'raises RuntimeError' do
-      expect{subject.svg_inline('sapphire.svg')}.to raise_error(RuntimeError)
+    describe '#svg_inline' do
+      it 'raises RuntimeError' do
+        expect{subject.svg_inline('sapphire.svg')}.to raise_error(RuntimeError)
+      end
+    end
+
+    describe '#svg_use' do
+      it 'returns SVG use statement' do
+        svg_content = subject.svg_use 'id'
+        expect(svg_content).to include '<use xlink:href="#id">'
+      end
+
+      it 'adds classes and ids to svg tag' do
+        svg_content = subject.svg_use 'id', id: 'hearts', class: 'love'
+        expect(svg_content).to include 'id="hearts" class="love"'
+      end
+
+      it 'adds any attribute to svg tag' do
+        svg_content = subject.svg_use 'id', width: '64px', height: '48px', viewport: '0 0 12 24'
+        expect(svg_content).to include 'width="64px" height="48px" viewport="0 0 12 24"'
+      end
     end
   end
 
@@ -31,11 +50,12 @@ RSpec.describe SvgHeartsYou do
     end
 
     describe '#svg_inline' do
-      it 'returns SVG' do
-        svg_content = subject.svg_inline('sapphire.svg')
+      it 'returns contents of SVG file without XML headers' do
+        svg_content = subject.svg_inline 'sapphire.svg'
         expect(svg_content).to include('<svg')
         expect(svg_content).to include('sapphire')
         expect(svg_content).not_to include('<xml')
+        expect(svg_content).not_to include('DOCTYPE')
       end
     end
   end
