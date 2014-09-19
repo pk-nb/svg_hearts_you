@@ -29,8 +29,8 @@ RSpec.describe SvgHeartsYou do
       end
 
       it 'adds any attribute to svg tag' do
-        svg_content = subject.svg_use 'id', width: '64px', height: '48px', viewport: '0 0 12 24'
-        expect(svg_content).to include 'width="64px" height="48px" viewport="0 0 12 24"'
+        svg_content = subject.svg_use 'id', width: '64px', height: '48px', viewport: '0, 0, 12, 24'
+        expect(svg_content).to include 'width="64px" height="48px" viewport="0, 0, 12, 24"'
       end
     end
   end
@@ -56,6 +56,25 @@ RSpec.describe SvgHeartsYou do
         expect(svg_content).to include('sapphire')
         expect(svg_content).not_to include('<xml')
         expect(svg_content).not_to include('DOCTYPE')
+      end
+    end
+
+    describe '#svg_symbol' do
+      it 'returns the SVG contents in a symbol' do
+        svg_content = subject.svg_symbol 'sapphire.svg'
+
+        sapphire_svg_attributes = {
+          x: '0',
+          y: '0',
+          width: '64',
+          height: '52',
+          viewbox: '0, 0, 64, 52'
+        }
+
+        expect(svg_content).not_to have_tag('svg', with: sapphire_svg_attributes)
+        expect(svg_content).to have_tag('svg>symbol', with: sapphire_svg_attributes)
+        expect(svg_content).not_to have_tag('svg>*:not(symbol)')
+        expect(svg_content).to have_tag('svg>symbol>*')
       end
     end
   end
