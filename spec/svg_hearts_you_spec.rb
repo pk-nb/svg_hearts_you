@@ -73,6 +73,7 @@ RSpec.describe SvgHeartsYou do
 
         expect(svg_content).not_to have_tag('svg', with: sapphire_svg_attributes)
         expect(svg_content).to have_tag('svg>symbol', with: sapphire_svg_attributes)
+        expect(svg_content).to have_tag('svg>symbol', with: { id: 'sapphire' })
         expect(svg_content).not_to have_tag('svg>*:not(symbol)')
         expect(svg_content).to have_tag('svg>symbol>*')
       end
