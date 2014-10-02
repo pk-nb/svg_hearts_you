@@ -28,4 +28,15 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rspec-html-matchers'
   spec.add_development_dependency 'pry'
+
+  # Rails Dummy Dependencies
+  spec.add_development_dependency 'rails', '~> 4.1'
+  spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency 'rspec-rails'
+  spec.add_development_dependency 'capybara'
+  spec.add_development_dependency 'factory_girl_rails'
+  spec.add_development_dependency 'slim'
+  spec.add_development_dependency 'slim-rails'
+
+  # Middleman Dummy Dependencies
 end
