@@ -18,7 +18,8 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  # spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.test_files = Dir["spec/**/*"]
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency 'nokogiri', '~> 1.6'
@@ -34,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'capybara'
+  spec.add_development_dependency 'launchy'
   spec.add_development_dependency 'factory_girl_rails'
   spec.add_development_dependency 'slim'
   spec.add_development_dependency 'slim-rails'

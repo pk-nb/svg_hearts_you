@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'SvgHeartsYou for Rails:' do
+RSpec.describe 'SvgHeartsYou for Rails:', type: :feature do
 
   describe 'configuration' do
     it 'is set by to `app/assets/images/svg` by default'
