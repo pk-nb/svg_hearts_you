@@ -6,7 +6,7 @@ RSpec.describe SvgHeartsYou do
   let!(:svg_file)              { 'sapphire.svg' }
   let!(:nonexistent_svg_file)  { 'nope-nope.svg' }
 
-  let!(:unconfigured_message)  { 'svg_path is not set' }
+  let!(:unconfigured_message)  { "File #{svg_file} not found" }
   let!(:missing_file_message)  { "File #{nonexistent_svg_file} not found" }
 
 
@@ -17,34 +17,34 @@ RSpec.describe SvgHeartsYou do
 
   # Generically tests methods (passed as symbol) that are
   # expected to throw runtime errors
-  shared_examples 'method that needs module configuration' do |method|
-    it 'throws a RuntimeError when not configured' do
-      expect{subject.send(method, svg_file)}.to raise_error(RuntimeError, unconfigured_message)
+  shared_examples 'methods that throw error on file not found' do |method|
+    it 'throws a RuntimeError when not file not found' do
+      expect{subject::Helpers.send(method, svg_file)}.to raise_error(RuntimeError, unconfigured_message)
     end
   end
 
   # Examples for methods that may throw error when files are missing
   shared_examples 'method using file' do |method|
     it 'throws a RuntimeError when file is not found' do
-      expect{subject.send(method, nonexistent_svg_file)}.to raise_error(RuntimeError, missing_file_message)
+      expect{subject::Helpers.send(method, nonexistent_svg_file)}.to raise_error(RuntimeError, missing_file_message)
     end
   end
 
   # Tests that are used in both unconfigured and configured contexts
   shared_examples 'svg use' do
     it 'returns SVG use statement' do
-      svg_content = subject.svg_use 'id'
+      svg_content = subject::Helpers.svg_use 'id'
       expect(svg_content).to include '<use xlink:href="#id">'
     end
 
     it 'adds classes and ids to svg tag' do
-      svg_content = subject.svg_use 'id', id: 'hearts', class: 'love'
+      svg_content = subject::Helpers.svg_use 'id', id: 'hearts', class: 'love'
       expect(svg_content).to have_tag('svg', with: { id: 'hearts', class: 'love' })
     end
 
     it 'adds any attribute to svg tag' do
       attributes = { width: '64px', height: '48px', viewport: '0, 0, 12, 24' }
-      svg_content = subject.svg_use 'id', attributes
+      svg_content = subject::Helpers.svg_use 'id', attributes
       expect(svg_content).to have_tag('svg', with: attributes)
     end
   end
@@ -53,12 +53,12 @@ RSpec.describe SvgHeartsYou do
   describe 'without configuration' do
     describe 'self.configuration' do
       it 'defaults attributes to nil' do
-        expect(SvgHeartsYou.configuration.svg_path).to be_nil
+        expect(SvgHeartsYou.configuration.svg_paths).to eq([])
       end
     end
 
     describe '#svg_inline' do
-      it_behaves_like 'method that needs module configuration', :svg_inline
+      it_behaves_like 'methods that throw error on file not found', :svg_inline
     end
 
     describe '#svg_use' do
@@ -66,20 +66,20 @@ RSpec.describe SvgHeartsYou do
     end
 
     describe '#svg_symbol' do
-      it_behaves_like 'method that needs module configuration', :svg_symbol
+      it_behaves_like 'methods that throw error on file not found', :svg_symbol
     end
   end
 
   describe 'with configuration' do
     before do
       SvgHeartsYou.configure do |config|
-        config.svg_path = test_svg_path
+        config.svg_paths << test_svg_path
       end
     end
 
     describe 'self.configuration' do
       it 'is configured to the the current directory' do
-        expect(SvgHeartsYou.configuration.svg_path).to eq(test_svg_path)
+        expect(SvgHeartsYou.configuration.svg_paths).to eq([test_svg_path])
       end
     end
 
@@ -87,7 +87,7 @@ RSpec.describe SvgHeartsYou do
       it_behaves_like 'method using file', :svg_inline
 
       it 'returns contents of SVG file without XML headers' do
-        svg_content = subject.svg_inline 'sapphire.svg'
+        svg_content = subject::Helpers.svg_inline 'sapphire.svg'
 
         expect(svg_content).to have_tag('svg')
         expect(svg_content).not_to include('<xml')
@@ -111,7 +111,7 @@ RSpec.describe SvgHeartsYou do
       it_behaves_like 'method using file', :svg_symbol
 
       it 'returns the SVG contents in a symbol' do
-        svg_content = subject.svg_symbol svg_file
+        svg_content = subject::Helpers.svg_symbol svg_file
 
         expect(svg_content).not_to have_tag('svg', with: sapphire_svg_attributes)
         expect(svg_content).to have_tag('svg>symbol', with: sapphire_svg_attributes)
@@ -124,6 +124,6 @@ RSpec.describe SvgHeartsYou do
 
   # Meta test to make sure state is wiped
   it 'correctly resets configuration at end of tests' do
-    expect(SvgHeartsYou.configuration.svg_path).to be_nil
+    expect(SvgHeartsYou.configuration.svg_paths).to eq([])
   end
 end

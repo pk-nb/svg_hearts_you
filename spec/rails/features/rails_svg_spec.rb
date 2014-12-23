@@ -4,7 +4,7 @@ RSpec.describe 'SvgHeartsYou for Rails:', type: :feature do
 
   describe 'configuration' do
     # it 'is set by to `app/assets/images/svg` by default'
-    it 'uses image_path by default'
+    describe 'starts searching assets_path then svg_paths'
   end
 
   describe 'the svg method' do

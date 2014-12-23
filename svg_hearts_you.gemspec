@@ -41,4 +41,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'slim-rails'
 
   # Middleman Dummy Dependencies
+  spec.add_development_dependency 'middleman'
 end
