@@ -2,25 +2,35 @@ require 'spec_helper'
 
 RSpec.describe SvgHeartsYou do
 
-  let(:test_svg_path) { File.join(File.dirname(__FILE__), 'svgs') }
+  let(:test_svg_path)          { File.join File.dirname(__FILE__), 'svgs' }
+  let!(:svg_file)              { 'sapphire.svg' }
+  let!(:nonexistent_svg_file)  { 'nope-nope.svg' }
 
-  let!(:svg_file)             { 'sapphire.svg' }
-  let!(:nonexistant_svg_file) { 'nope-nope-nope.svg' }
-  let!(:unconfigured_message) { 'svg_path is not set' }
-  let!(:missing_file_message) { "File #{nonexistant_svg_file} not found" }
+  let!(:unconfigured_message)  { 'svg_path is not set' }
+  let!(:missing_file_message)  { "File #{nonexistent_svg_file} not found" }
 
+
+  # Singleton module is messy for random order tests, so wipe state after each
+  after(:each) do
+    SvgHeartsYou.reset
+  end
+
+  # Generically tests methods (passed as symbol) that are
+  # expected to throw runtime errors
   shared_examples 'method that needs module configuration' do |method|
     it 'throws a RuntimeError when not configured' do
       expect{subject.send(method, svg_file)}.to raise_error(RuntimeError, unconfigured_message)
     end
   end
 
+  # Examples for methods that may throw error when files are missing
   shared_examples 'method using file' do |method|
     it 'throws a RuntimeError when file is not found' do
-      expect{subject.send(method, nonexistant_svg_file)}.to raise_error(RuntimeError, missing_file_message)
+      expect{subject.send(method, nonexistent_svg_file)}.to raise_error(RuntimeError, missing_file_message)
     end
   end
 
+  # Tests that are used in both unconfigured and configured contexts
   shared_examples 'svg use' do
     it 'returns SVG use statement' do
       svg_content = subject.svg_use 'id'
@@ -39,9 +49,10 @@ RSpec.describe SvgHeartsYou do
     end
   end
 
-  describe 'module not configured' do
+
+  describe 'without configuration' do
     describe 'self.configuration' do
-      it 'not configured' do
+      it 'defaults attributes to nil' do
         expect(SvgHeartsYou.configuration.svg_path).to be_nil
       end
     end
@@ -59,8 +70,7 @@ RSpec.describe SvgHeartsYou do
     end
   end
 
-
-  describe 'module configured' do
+  describe 'with configuration' do
     before do
       SvgHeartsYou.configure do |config|
         config.svg_path = test_svg_path
@@ -96,7 +106,7 @@ RSpec.describe SvgHeartsYou do
         width: '64',
         height: '52',
         viewbox: '0, 0, 64, 52'
-      }}
+        }}
 
       it_behaves_like 'method using file', :svg_symbol
 
@@ -110,5 +120,10 @@ RSpec.describe SvgHeartsYou do
         expect(svg_content).to have_tag('svg>symbol>*')
       end
     end
+  end
+
+  # Meta test to make sure state is wiped
+  it 'correctly resets configuration at end of tests' do
+    expect(SvgHeartsYou.configuration.svg_path).to be_nil
   end
 end

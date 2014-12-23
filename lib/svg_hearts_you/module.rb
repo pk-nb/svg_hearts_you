@@ -79,6 +79,10 @@ module SvgHeartsYou
     @configuration ||= Configuration.new
   end
 
+  def self.reset
+    @configuration = Configuration.new
+  end
+
   def self.validate_configuration
     raise 'svg_path is not set' if configuration.svg_path.nil?
   end
