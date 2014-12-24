@@ -11,8 +11,6 @@ require 'factory_girl_rails'
 require 'capybara/rspec'
 require 'middleman'
 
-# require 'svg_hearts_you'
-
 Rails.backtrace_cleaner.remove_silencers!
 
 # Load support files

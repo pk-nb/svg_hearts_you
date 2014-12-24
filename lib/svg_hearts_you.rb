@@ -6,7 +6,7 @@ require 'svg_hearts_you/module'
 require 'svg_hearts_you/helpers'
 
 # Add Helper methods as class methods on SvgHeartsYou
-SvgHeartsYou.extend(SvgHeartsYou::Helpers)
+# SvgHeartsYou.extend(SvgHeartsYou::Helpers)
 
 # Bind to Rails, Middleman, Jeykll, Sinatra... if availible
 # ActionView::Base.send :include, SvgHeartsYou::Helpers if defined?(Rails)

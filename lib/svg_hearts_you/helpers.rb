@@ -1,13 +1,10 @@
 module SvgHeartsYou
-  # def self.validate_configuration
-  #   raise 'svg_path is not set' if configuration.svg_path.nil?
-  # end
 
-  def self.read_file(filename)
-    path = File.join configuration.svg_path, filename
-    raise "File #{filename} not found" unless File.exists?(path)
-    File.read path
-  end
+  # def self.read_file(filename)
+  #   path = File.join configuration.svg_path, filename
+  #   raise "File #{filename} not found" unless File.exists?(path)
+  #   File.read path
+  # end
 
   def self.find_svg_file(filename)
     configuration.all_svg_paths.each do |path|
@@ -20,6 +17,7 @@ module SvgHeartsYou
     # if not found, raise error
     raise "File #{filename} not found"
   end
+
 
   module Helpers
 
@@ -34,7 +32,7 @@ module SvgHeartsYou
         svg[key.to_s] = value
       end
 
-      svg.to_html
+      svg.to_html.html_safe
     end
 
     def svg_symbol(filename, options={})
@@ -65,7 +63,7 @@ module SvgHeartsYou
         new_svg[key.to_s] = value
       end
 
-      new_svg.to_html
+      new_svg.to_html.html_safe
     end
 
     def svg_use(id, options={})
@@ -85,8 +83,12 @@ module SvgHeartsYou
         svg[key.to_s] = value
       end
 
-      svg.to_html
+      svg.to_html.html_safe
     end
+  end
 
+  # Add helpers as class methods on the SvgHeartsYou module
+  class << self
+    include Helpers
   end
 end

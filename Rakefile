@@ -31,4 +31,9 @@ RSpec::Core::RakeTask.new(:spec => 'app:db:test:prepare') do |task|
   task.rspec_opts = ['--color']
 end
 
+desc "Open an irb session preloaded with this library"
+task :console do
+  sh "irb -rubygems -I lib -r svg_hearts_you.rb"
+end
+
 task :default => :spec
