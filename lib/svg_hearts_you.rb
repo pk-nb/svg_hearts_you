@@ -1,5 +1,7 @@
-# require 'active_support'
-# require 'active_support/core_ext'
+begin
+  require "pry"
+rescue LoadError
+end
 
 require 'svg_hearts_you/configuration'
 require 'svg_hearts_you/module'

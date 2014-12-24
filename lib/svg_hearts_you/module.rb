@@ -1,12 +1,3 @@
-require 'nokogiri'
-# require 'rails'
-# require 'action_view'
-
-begin
-  require "pry"
-rescue LoadError
-end
-
 module SvgHeartsYou
   class << self
     attr_accessor :configuration

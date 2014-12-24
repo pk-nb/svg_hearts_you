@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 module SvgHeartsYou
 
   # def self.read_file(filename)
@@ -67,6 +69,9 @@ module SvgHeartsYou
     end
 
     def svg_use(id, options={})
+      # Strip .svg extension if necessary
+      id.gsub!(/\.svg\z/, '')
+
       doc = Nokogiri::HTML::DocumentFragment.parse <<-YAYUSE
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <use xlink:href="##{id}">

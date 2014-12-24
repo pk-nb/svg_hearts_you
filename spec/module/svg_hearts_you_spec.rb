@@ -47,6 +47,12 @@ RSpec.describe SvgHeartsYou do
       svg_content = subject.svg_use 'id', attributes
       expect(svg_content).to have_tag('svg', with: attributes)
     end
+
+    it 'strips .svg extension if necessary' do
+      svg_content = subject.svg_use 'circle.svg'
+      expect(svg_content).to include '<use xlink:href="#circle">'
+      expect(svg_content).to_not include '<use xlink:href="#circle.svg">'
+    end
   end
 
 
