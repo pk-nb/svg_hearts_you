@@ -1,10 +1,24 @@
+# require 'active_support'
+# require 'active_support/core_ext'
+
 require 'svg_hearts_you/configuration'
 require 'svg_hearts_you/module'
 require 'svg_hearts_you/helpers'
 
 # Bind to Rails, Middleman, Jeykll, Sinatra... if availible
-ActionView::Base.send :include, SvgHeartsYou::Helpers if defined?(Rails)
+# ActionView::Base.send :include, SvgHeartsYou::Helpers if defined?(Rails)
 
-if defined?(Middleman)
-  # Middleman.helpers SvgHeartsYou::Helpers
-end
+require 'svg_hearts_you/railtie' if defined?(Rails)
+
+# if defined?(Rails)
+#   class Railtie < ::Rails::Railtie
+#     initializer 'bh.add_helpers' do
+#       ActionView::Base.send :include, SvgHeartsYou::Helpers
+#     end
+#   end
+#   Railtie
+# end
+
+# if defined?(Middleman)
+#   # Middleman.helpers SvgHeartsYou::Helpers
+# end
