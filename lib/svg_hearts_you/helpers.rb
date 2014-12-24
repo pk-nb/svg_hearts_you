@@ -52,6 +52,11 @@ module SvgHeartsYou
       original_svg.name = 'symbol'
       original_svg['id'] = filename.chomp('.svg')
 
+      # Add all attributes to symbol
+      options.each do |key, value|
+        original_svg[key.to_s] = value
+      end
+
       # Move the SVG specific attributes to outer svg and then wrap
       %w(version xmlns xmlns:xlink).map do |attr|
         new_svg[attr] = original_svg.delete attr
@@ -59,11 +64,6 @@ module SvgHeartsYou
 
       # Wrap old svg-now-symbol in new svg tag
       new_svg.add_child(original_svg)
-
-      # Any extra attributes go on the svg tag
-      options.each do |key, value|
-        new_svg[key.to_s] = value
-      end
 
       new_svg.to_html.html_safe
     end

@@ -125,6 +125,16 @@ RSpec.describe SvgHeartsYou do
         expect(svg_content).not_to have_tag('svg>*:not(symbol)')
         expect(svg_content).to have_tag('svg>symbol>*')
       end
+
+      it 'replaces attributes if specified on method call' do
+        new_viewbox = '0, 0, 100, 100'
+
+        updated_attributes = sapphire_svg_attributes.clone
+        updated_attributes[:viewbox] = new_viewbox
+
+        svg_content = subject.svg_symbol svg_file, viewbox: new_viewbox
+        expect(svg_content).to have_tag('svg>symbol', with: updated_attributes)
+      end
     end
   end
 
