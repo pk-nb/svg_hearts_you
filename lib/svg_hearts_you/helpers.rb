@@ -23,7 +23,7 @@ module SvgHeartsYou
 
   module Helpers
 
-    def self.svg_inline(filename, options={})
+    def svg_inline(filename, options={})
       svg_file = SvgHeartsYou::find_svg_file(filename)
 
       doc = Nokogiri::HTML::DocumentFragment.parse(svg_file)
@@ -37,7 +37,7 @@ module SvgHeartsYou
       svg.to_html
     end
 
-    def self.svg_symbol(filename, options={})
+    def svg_symbol(filename, options={})
       # validate_configuration
       svg_file = SvgHeartsYou::find_svg_file(filename)
 
@@ -68,7 +68,7 @@ module SvgHeartsYou
       new_svg.to_html
     end
 
-    def self.svg_use(id, options={})
+    def svg_use(id, options={})
       doc = Nokogiri::HTML::DocumentFragment.parse <<-YAYUSE
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <use xlink:href="##{id}">
