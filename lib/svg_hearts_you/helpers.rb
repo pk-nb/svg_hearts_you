@@ -10,7 +10,7 @@ module SvgHeartsYou
   end
 
   def self.find_svg_file(filename)
-    configuration.svg_paths.each do |path|
+    configuration.all_svg_paths.each do |path|
       file_path = File.join path, filename
       if File.exists?(file_path)
         return File.read file_path
