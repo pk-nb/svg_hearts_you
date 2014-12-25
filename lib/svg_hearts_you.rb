@@ -14,6 +14,7 @@ require 'svg_hearts_you/helpers'
 # ActionView::Base.send :include, SvgHeartsYou::Helpers if defined?(Rails)
 
 require 'svg_hearts_you/railtie' if defined?(Rails)
+require 'svg_hearts_you/middleman_extension' if defined?(Middleman)
 
 # if defined?(Rails)
 #   class Railtie < ::Rails::Railtie
