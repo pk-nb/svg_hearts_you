@@ -18,13 +18,10 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  # spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.test_files = Dir["spec/**/*"]
+  spec.test_files    = `git ls-files -- {features,fixtures,spec}/*`.split($/)
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency 'nokogiri', '~> 1.6'
-  # spec.add_runtime_dependency 'activesupport'
-  # spec.add_runtime_dependency 'actionpack'
 
   spec.add_development_dependency 'rails', '~> 4'
   spec.add_development_dependency 'bundler', '~> 1.6'
@@ -33,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec-html-matchers'
   spec.add_development_dependency 'pry'
 
-  # Test stuff# Middleman Dummy Dependencies
+  # Middleman Test Dummy Dependencies
   spec.add_dependency 'middleman-core', '>= 3.2'
   spec.add_development_dependency 'cucumber',  '~> 1.3'
   spec.add_development_dependency 'aruba',     '~> 0.6'
@@ -47,7 +44,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'factory_girl_rails'
   spec.add_development_dependency 'slim'
   spec.add_development_dependency 'slim-rails'
-
-
-  # spec.add_development_dependency 'middleman'
 end
