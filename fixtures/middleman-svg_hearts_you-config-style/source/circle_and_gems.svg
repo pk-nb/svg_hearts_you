@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="100" height="100" viewBox="0, 0, 100, 100">
+  <g id="Layer_1">
+    <path d="M50,100 C22.386,100 0,77.614 0,50 C0,22.386 22.386,0 50,-0 C77.614,-0 100,22.386 100,50 C100,77.614 77.614,100 50,100 z" fill="#4B5A65"/>
+    <g id="emerald">
+      <path d="M50,88 L66,74 L58,62 L42,62 L34,74 z" fill="#55A359"/>
+      <path d="M50,88 L58,74 L42,74 L50,88 z" fill="#76BA76"/>
+      <path d="M50,62 L42,74 L58,74 L50,62 z" fill="#B2DEB0"/>
+      <path d="M42,74 L42,62 L50,62 L42,74 z" fill="#91D593"/>
+      <path d="M50,62 L58,74 L58,62 L50,62 z" fill="#91D593"/>
+      <path d="M42,62 L42,74 L34,74 L42,62 z" fill="#71C170"/>
+      <path d="M58,74 L66,74 L58,62 L58,74 z" fill="#71C170"/>
+    </g>
+    <g id="ruby">
+      <path d="M50,62 L66,48 L58,36 L42,36 L34,48 z" fill="#A35556"/>
+      <path d="M50,62 L58,48 L42,48 L50,62 z" fill="#BB7273"/>
+      <path d="M50,36 L42,48 L58,48 L50,36 z" fill="#E2AFAF"/>
+      <path d="M42,48 L42,36 L50,36 L42,48 z" fill="#D59191"/>
+      <path d="M50,36 L58,48 L58,36 L50,36 z" fill="#D59191"/>
+      <path d="M42,36 L42,48 L34,48 L42,36 z" fill="#C1645F"/>
+      <path d="M58,48 L66,48 L58,36 L58,48 z" fill="#C1645F"/>
+    </g>
+    <g id="sapphire">
+      <path d="M50,36 L66,22 L58,10 L42,10 L34,22 z" fill="#5855A3"/>
+      <path d="M50,36 L58,22 L42,22 L50,36 z" fill="#7676BA"/>
+      <path d="M50,10 L42,22 L58,22 L50,10 z" fill="#B0B3DE"/>
+      <path d="M42,22 L42,10 L50,10 L42,22 z" fill="#919CD5"/>
+      <path d="M50,10 L58,22 L58,10 L50,10 z" fill="#919CD5"/>
+      <path d="M42,10 L42,22 L34,22 L42,10 z" fill="#7071C1"/>
+      <path d="M58,22 L66,22 L58,10 L58,22 z" fill="#7071C1"/>
+    </g>
+  </g>
+</svg>
