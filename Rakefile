@@ -43,3 +43,4 @@ task :console do
 end
 
 task :default => :spec
+task :test => [:spec, :cucumber]
