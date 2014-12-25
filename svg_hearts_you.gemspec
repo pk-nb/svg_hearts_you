@@ -33,6 +33,12 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec-html-matchers'
   spec.add_development_dependency 'pry'
 
+  # Test stuff# Middleman Dummy Dependencies
+  spec.add_dependency 'middleman-core', '>= 3.2'
+  spec.add_development_dependency 'cucumber',  '~> 1.3'
+  spec.add_development_dependency 'aruba',     '~> 0.6'
+  spec.add_development_dependency 'coveralls', '~> 0.7'
+
   # Rails Dummy Dependencies
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency 'rspec-rails'
@@ -42,6 +48,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'slim'
   spec.add_development_dependency 'slim-rails'
 
-  # Middleman Dummy Dependencies
-  spec.add_development_dependency 'middleman'
+
+  # spec.add_development_dependency 'middleman'
 end

@@ -26,6 +26,12 @@ Bundler::GemHelper.install_tasks
 
 # Dir[File.join(File.dirname(__FILE__), 'tasks/**/*.rake')].each {|f| load f }
 
+require 'cucumber/rake/task'
+
+Cucumber::Rake::Task.new(:cucumber, 'Run features that should pass') do |task|
+  task.cucumber_opts = '--color --tags ~@wip --strict --format pretty'
+end
+
 desc "Run all specs in spec directory (excluding plugin specs)"
 RSpec::Core::RakeTask.new(:spec => 'app:db:test:prepare') do |task|
   task.rspec_opts = ['--color']
