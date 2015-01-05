@@ -12,11 +12,17 @@ module SvgHeartsYou
             config.svg_paths << options_hash[:svg_paths]
           end
         end
-
       end
 
       helpers do
         include SvgHeartsYou::Helpers
+      end
+
+      def after_configuration
+        # Add middleman app's images_dir by default
+        SvgHeartsYou.configure do |config|
+          config.svg_paths << File.join(Dir.pwd, app.settings.source, app.settings.images_dir)
+        end
       end
     end
   end

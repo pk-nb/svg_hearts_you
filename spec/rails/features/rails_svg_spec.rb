@@ -35,12 +35,12 @@ RSpec.describe 'SvgHeartsYou for Rails:', type: :feature do
     end
 
     it '#svg_symbol' do
-      expect(page).to have_selector('symbol')
+      # save_and_open_page
+      expect(page).to have_selector('symbol', visible: false)
     end
 
     it '#svg_use' do
       expect(page).to have_selector('use')
-      # save_and_open_page
     end
   end
 

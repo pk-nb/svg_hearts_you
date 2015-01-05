@@ -78,11 +78,10 @@ module SvgHeartsYou
         end
       end
 
-
-
       doc = Nokogiri::HTML::DocumentFragment.parse('')
       wrapper_svg = Nokogiri::XML::Node.new 'svg', doc
 
+      wrapper_svg['version'] = '1.1'
       wrapper_svg['xmlns'] = 'http://www.w3.org/2000/svg'
       wrapper_svg['style'] = 'display: none;'
 
@@ -104,7 +103,20 @@ module SvgHeartsYou
           node.delete attr
         end
 
-        # yield here to block?
+
+        if block_given?
+          attributes = {}
+          node.entries.each do |item|
+            attributes[item[0].to_sym] = item[1]
+          end
+
+          # Allow each symbol to be configured if block given
+          yield(attributes)
+
+          attributes.each do |key, value|
+            node[key.to_s] = value
+          end
+        end
 
 
         wrapper_svg.add_child(node)
@@ -116,34 +128,6 @@ module SvgHeartsYou
       options.each do |key, value|
         wrapper_svg[key.to_s] = value
       end
-
-
-      # validate_configuration
-      # svg_file = SvgHeartsYou::find_svg_file(filename)
-      #
-      # doc = Nokogiri::HTML::DocumentFragment.parse(svg_file)
-      #
-      # # Create two nodes for the symbol. The original svg tag will turn into
-      # # a symbol tag, and the new tag will enclose it.
-      # original_svg = doc.at_css 'svg'
-      # new_svg = Nokogiri::XML::Node.new 'svg', doc
-      #
-      # # Change original svg to a symbol and set id to the filename
-      # original_svg.name = 'symbol'
-      # original_svg['id'] = filename.chomp('.svg')
-      #
-      # # Add all attributes to symbol
-      # options.each do |key, value|
-      #   original_svg[key.to_s] = value
-      # end
-      #
-      # # Move the SVG specific attributes to outer svg and then wrap
-      # %w(version xmlns xmlns:xlink).map do |attr|
-      #   new_svg[attr] = original_svg.delete attr
-      # end
-      #
-      # # Wrap old svg-now-symbol in new svg tag
-      # new_svg.add_child(original_svg)
 
       wrapper_svg.to_html.html_safe
     end

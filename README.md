@@ -88,8 +88,9 @@ other keys are added as parameters to the parent `<svg>` tag.
 <%= svg_symbol 'all-my-shapes', folder: true %>
 
 <!-- 4 -->
-<%= svg_symbol 'all-my-shapes', folder: true do |symbol, attributes| %>
-  <%= symbol id: attributes.id + '-logo', class: 'shape' %>
+<%= svg_symbol 'all-my-shapes', folder: true do |attributes| %>
+  <% attributes[:class] = 'shape' %>
+  <% attributes[:id] = attributes[:id] + '-logo' %>
 <% end %>
 ```
 
@@ -143,13 +144,6 @@ other keys are added as parameters to the parent `<svg>` tag.
 ```
 
 
-
-
-
-
-
-
-
 ## Contributing
 
 ### Basics
@@ -164,3 +158,9 @@ other keys are added as parameters to the parent `<svg>` tag.
         * `git rebase -i HEAD~#` (Squash # commits, changing # to real value)
         * Push up the new branch
 1. Create a new Pull Request with squashed branch
+
+Make sure all tests pass with `bundle exec rake test`, and add appropriate tests
+for whatever additions you add. Currently Middleman functionality is tested
+through cucumber features and fixtures, taking advantage of step definitions
+in `middleman-core`. Unit tests and rails feature tests are in `spec`. The rails
+features use a dummy rails app for testing under `spec/rails/dummy`.

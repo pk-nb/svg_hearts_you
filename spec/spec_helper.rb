@@ -9,11 +9,6 @@ require File.expand_path("../rails/dummy/config/environment.rb",  __FILE__)
 require 'rspec/rails'
 require 'factory_girl_rails'
 require 'capybara/rspec'
-# require 'middleman'
-# require 'middleman-core/version'
-# require 'middleman-core/util'
-# require 'middleman-core/extensions'
-# require 'middleman-core/application'
 
 Rails.backtrace_cleaner.remove_silencers!
 

@@ -168,8 +168,9 @@ RSpec.describe SvgHeartsYou do
       it 'takes a block that can modify each symbol' do
         new_class = 'shape'
 
-        svg_content = subject.svg_symbol svg_folder, folder: true do |symbol, attributes|
-          symbol(id: attributes.id + '-extra', class: 'shape')
+        svg_content = subject.svg_symbol svg_folder, folder: true do |attributes|
+          attributes[:id] = attributes[:id] + '-extra'
+          attributes[:class] = 'shape'
         end
 
         expect(svg_content).to have_tag('svg>symbol', with: { id: 'polygon-extra',  class: new_class })

@@ -11,3 +11,9 @@ Feature: SvgHeartsYou gem in a middleman app
     When I go to "/index.html"
     Then I should see "<svg"
     Then reset SvgHeartsYou configuration
+
+  Scenario: Configuring gem with Middleman extension
+    Given the Server is running at "middleman-extension-default-config"
+    When I go to "/index.html"
+    Then I should see "<svg"
+    Then reset SvgHeartsYou configuration

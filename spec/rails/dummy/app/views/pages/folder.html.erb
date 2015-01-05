@@ -1,5 +1,5 @@
 <%= svg_symbol 'all-my-shapes', folder: true, each: {viewbox: '0, 0, 100, 100'} %>
 
 <%= svg_symbol 'all-my-shapes', folder: true do |symbol, attributes| %>
-  <%= symbol id: attributes.id + '-logo', class: 'shape' %>
+  <% symbol id: attributes.id + '-logo', class: 'shape' %>
 <% end %>
