@@ -4,6 +4,8 @@ RSpec.describe SvgHeartsYou do
 
   let(:test_svg_path)          { File.join File.dirname(__FILE__), 'svgs' }
   let!(:svg_file)              { 'sapphire.svg' }
+  let!(:svg_file2)             { 'circle.svg' }
+  let!(:svg_folder)            { 'shapes' }
   let!(:nonexistent_svg_file)  { 'nope-nope.svg' }
 
   let!(:unconfigured_message)  { "File #{svg_file} not found" }
@@ -126,14 +128,47 @@ RSpec.describe SvgHeartsYou do
         expect(svg_content).to have_tag('svg>symbol>*')
       end
 
-      it 'replaces attributes if specified on method call' do
+      it 'applies extra attributes to top level svg' do
+        new_id = 'hey-there'
+
+        svg_content = subject.svg_symbol svg_file, id: new_id
+        expect(svg_content).to have_tag('svg', with: {id: new_id})
+      end
+
+      it 'applies or replaces attributes on each symbol with the `each` parameter' do
         new_viewbox = '0, 0, 100, 100'
+        new_class = 'shape'
 
         updated_attributes = sapphire_svg_attributes.clone
         updated_attributes[:viewbox] = new_viewbox
+        updated_attributes[:class] = new_class
 
-        svg_content = subject.svg_symbol svg_file, viewbox: new_viewbox
+        svg_content = subject.svg_symbol svg_file, each: { viewbox: new_viewbox, class: new_class }
         expect(svg_content).to have_tag('svg>symbol', with: updated_attributes)
+      end
+
+      it 'pulls in multiple files' do
+        svg_content = subject.svg_symbol svg_file, svg_file2
+        expect(svg_content).to have_css('svg>symbol', count: 2)
+      end
+
+      it 'pulls in a given folder with `folder` parameter' do
+        svg_content = subject.svg_symbol svg_folder, folder: true
+        expect(svg_content).to have_tag('svg>symbol', with: { id: 'polygon' })
+        expect(svg_content).to have_tag('svg>symbol', with: { id: 'star' })
+        expect(svg_content).to have_tag('svg>symbol', with: { id: 'triangle' })
+      end
+
+      it 'takes a block that can modify each symbol' do
+        new_class = 'shape'
+
+        svg_content = subject.svg_symbol svg_folder, folder: true do |symbol, attributes|
+          symbol(id: attributes.id + '-extra', class: 'shape')
+        end
+
+        expect(svg_content).to have_tag('svg>symbol', with: { id: 'polygon-extra',  class: new_class })
+        expect(svg_content).to have_tag('svg>symbol', with: { id: 'star-extra',     class: new_class })
+        expect(svg_content).to have_tag('svg>symbol', with: { id: 'triangle-extra', class: new_class })
       end
     end
   end

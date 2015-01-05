@@ -5,9 +5,10 @@
 # SVG ❤’s You
 
 A heartwarming gem to help inline, symbolize, or externally `<use>` SVG files
-at the view level. SVG ❤’s You provides several helper methods for different SVG strategies It also includes the SVG4Everybody polyfill to include when using external `<use>`.
+at the view level. SVG ❤’s You provides several helper methods for both inlining
+and symbolizing SVG
 
-Stop copy/pasting SVG text.  
+Stop copy/pasting SVG text.
 
 
 
@@ -33,6 +34,101 @@ $ gem install svg_hearts_you
 
 ## Usage
 
+SVG ❤’s You provides the following helper methods.
+
+---
+
+### > `svg_inline(filename, options={})`
+
+Quickly inline a svg from a given file. It searches the configured `svg_paths` for a filename, otherwise throws a runtime error on file not found. Any attributes provided are placed as attributes on the `<svg>` tag.
+
+#### Usage (ERB)
+
+```
+<%= svg_inline 'circle', id: 'my-pretty-circle', class: 'logo' %>
+```
+
+#### Output
+
+```
+<svg id="my-pretty-circle" class="logo" (existing attributes in file...)>
+   <!-- Contents of circle.svg file -->
+</svg>
+```
+
+---
+
+### > `svg_symbol(filenames*, options={})`
+
+Takes a set of filenames and converts all the svg files into symbols within one
+svg for reuse in the document.
+
+#### Usage (ERB)
+
+```
+<!-- 1 -->
+<%= svg_symbol 'circle', 'square', class: 'shapes' %>
+
+<!-- 2 -->
+<!-- folder contains circle.svg, square.svg, and triangle.svg -->
+<%= svg_symbol 'all-my-shapes', folder: true %>
+
+<!-- 3 -->
+<%= svg_symbol 'all-my-shapes', folder: true do |symbol, attributes| %>
+  <%= symbol id: attributes.id + '-logo', class: 'shape' %>
+<% end %>
+```
+
+#### Output
+
+```
+<!-- 1 -->
+
+<svg class="shapes">
+  <symbol id="circle" (existing attributes on circle.svg <svg> tag...)>
+    <!-- Contents of circle.svg file -->
+  </symbol>
+  <symbol id="square" (existing attributes on square.svg <svg> tag...)>
+    <!-- Contents of square.svg file -->
+  </symbol>
+</svg>
+
+<!-- 2 -->
+<svg>
+  <symbol id="circle" ...>
+    <!-- Contents of circle.svg file -->
+  </symbol>
+  <symbol id="square" ...>
+    <!-- Contents of square.svg file -->
+  </symbol>
+  <symbol id="triangle" ...>
+    <!-- Contents of triangle.svg file -->
+  </symbol>
+</svg>
+
+
+<!-- 3 -->
+<svg>
+  <symbol id="circle-logo" class="shape" ...>
+    <!-- Contents of circle.svg file -->
+  </symbol>
+  <symbol id="square-logo" class="shape" ...>
+    <!-- Contents of square.svg file -->
+  </symbol>
+  <symbol id="triangle-logo" class="shape" ...>
+    <!-- Contents of triangle.svg file -->
+  </symbol>
+</svg>
+```
+
+
+
+
+
+
+
+
+
 ## Contributing
 
 ### Basics
@@ -47,34 +143,3 @@ $ gem install svg_hearts_you
         * `git rebase -i HEAD~#` (Squash # commits, changing # to real value)
         * Push up the new branch
 1. Create a new Pull Request with squashed branch
-
-
-### Updating
-
-This gem uses the SVG for Everybody gem to polyfill IE and Android devices when
-`svg_use` is set to use external sources.
-
-The gem is included as a separate branch and using [subtree merging](http://git-scm.com/book/en/v1/Git-Tools-Subtree-Merging).
-To update the gem, run the following commands:
-
-#### #1 (First time) Creating local branch to pull svg4everybody gem
-
-```
-git remote add svg_for_everybody_remote https://github.com/jonathantneal/svg4everybody.git
-git fetch svg_for_everybody_remote
-git checkout -b svg_for_everybody_branch svg_for_everybody_remote/master
-```
-
-#### #2 Updating gem and merging
-
-Branch is already included through the `git read-tree` command, so all that's
-needed to update is:
-
-```
-git checkout svg_for_everybody_branch
-git pull
-git checkout master
-git merge --squash -s subtree --no-commit svg_for_everybody_branch
-```
-
-Then check, modify, etc and commit when ready. Fancy.

@@ -4,7 +4,6 @@ RSpec.describe 'SvgHeartsYou for Rails:', type: :feature do
 
   let(:test_svg_path) { 'some/junk/path/svgs' }
 
-
   describe 'configuration' do
     describe 'paths searched' do
       # Singleton module is messy for random order tests, so wipe state after each
@@ -26,7 +25,7 @@ RSpec.describe 'SvgHeartsYou for Rails:', type: :feature do
     end
   end
 
-  describe 'the svg method' do
+  describe 'basic use of helper methods' do
     before do
       visit '/basic'
     end
@@ -43,5 +42,13 @@ RSpec.describe 'SvgHeartsYou for Rails:', type: :feature do
       expect(page).to have_selector('use')
       # save_and_open_page
     end
+  end
+
+  describe 'use of folder and blocks in helper methods' do
+    before do
+      visit '/folder'
+    end
+
+    # it 'finds a folder and return'
   end
 end
