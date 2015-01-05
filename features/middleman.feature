@@ -11,3 +11,10 @@ Feature: SvgHeartsYou gem in a middleman app
     When I go to "/index.html"
     Then I should see "<svg"
     Then reset SvgHeartsYou configuration
+
+  @ignore
+  Scenario: Using svg_for_everybody js files without any additional config
+    Given the Server is running at "middleman-svg_for_everybody-js"
+    When I go to "/index.html"
+    Then I should see "svg_for_everybody/svg4everybody.min.js"
+    Then reset SvgHeartsYou configuration
