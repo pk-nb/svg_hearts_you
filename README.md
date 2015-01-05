@@ -1,3 +1,7 @@
+# Gem incomplete, almost ready for submission.
+
+---
+
 # SVG ❤’s You
 
 A heartwarming gem to help inline, symbolize, or externally `<use>` SVG files

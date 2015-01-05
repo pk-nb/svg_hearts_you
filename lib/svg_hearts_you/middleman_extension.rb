@@ -6,14 +6,13 @@ module SvgHeartsYou
       def initialize(app, options_hash={}, &block)
         super
 
-        binding.pry
-
         # Configure gem if svg_paths option is set via middleman
         if options_hash.key?(:svg_paths)
           SvgHeartsYou.configure do |config|
             config.svg_paths << options_hash[:svg_paths]
           end
         end
+
       end
 
       helpers do

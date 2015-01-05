@@ -5,21 +5,21 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'svg_hearts_you/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "svg_hearts_you"
+  spec.name          = 'svg_hearts_you'
   spec.version       = SvgHeartsYou::VERSION
-  spec.authors       = ["Nathanael Beisiegel"]
-  spec.email         = ["pknb.dev@gmail.com"]
+  spec.authors       = ['Nathanael Beisiegel']
+  spec.email         = ['pknb.dev@gmail.com']
   spec.summary       = %q{A heartwarming gem to inline SVG. Inline or symbolize and use. Easy.}
   spec.description   = %q{A heartwarming gem to inline SVG. SVG Hearts You provides helper
                           methods to inline SVG. You can directly inline for maximum CSS control,
                           or symbolize a file or folder of SVGs and reuse the symbols. }
-  spec.homepage      = ""
-  spec.license       = "MIT"
+  spec.homepage      = ''
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = `git ls-files -- {features,fixtures,spec}/*`.split($/)
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'nokogiri', '~> 1.6'
 
@@ -31,13 +31,14 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry'
 
   # Middleman Test Dummy Dependencies
-  spec.add_dependency 'middleman-core', '>= 3.2'
+  spec.add_development_dependency 'middleman-core', '>= 3.2'
+  spec.add_development_dependency 'sprockets'
   spec.add_development_dependency 'cucumber',  '~> 1.3'
   spec.add_development_dependency 'aruba',     '~> 0.6'
   spec.add_development_dependency 'coveralls', '~> 0.7'
 
   # Rails Dummy Dependencies
-  spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency 'launchy'
