@@ -6,6 +6,7 @@ RSpec.describe SvgHeartsYou do
   let!(:svg_file)              { 'sapphire.svg' }
   let!(:svg_file2)             { 'circle.svg' }
   let!(:svg_folder)            { 'shapes' }
+  let!(:svg_folder2)           { 'logos' }
   let!(:nonexistent_svg_file)  { 'nope-nope.svg' }
 
   let!(:unconfigured_message)  { "File #{svg_file} not found" }
@@ -148,8 +149,8 @@ RSpec.describe SvgHeartsYou do
       end
 
       it 'pulls in multiple files' do
-        svg_content = subject.svg_symbol svg_file, svg_file2
-        expect(svg_content).to have_css('svg>symbol', count: 2)
+        svg_content = subject.svg_symbol [svg_file, svg_file2]
+        expect(svg_content).to have_tag('svg>symbol', count: 2)
       end
 
       it 'pulls in a given folder with `folder` parameter' do
@@ -157,6 +158,11 @@ RSpec.describe SvgHeartsYou do
         expect(svg_content).to have_tag('svg>symbol', with: { id: 'polygon' })
         expect(svg_content).to have_tag('svg>symbol', with: { id: 'star' })
         expect(svg_content).to have_tag('svg>symbol', with: { id: 'triangle' })
+      end
+
+      it 'pulls in multiple folders with `folder` parameter' do
+        svg_content = subject.svg_symbol [svg_folder, svg_folder2], folder: true
+        expect(svg_content).to have_tag('svg>symbol', count: 8)
       end
 
       it 'takes a block that can modify each symbol' do

@@ -38,7 +38,7 @@ SVG ❤’s You provides the following helper methods.
 
 ---
 
-### > `svg_inline(filename, options={})`
+### `svg_inline(filename, options={})`
 
 Quickly inline a svg from a given file. It searches the configured `svg_paths` for a filename, otherwise throws a runtime error on file not found. Any attributes provided are placed as attributes on the `<svg>` tag.
 
@@ -58,22 +58,36 @@ Quickly inline a svg from a given file. It searches the configured `svg_paths` f
 
 ---
 
-### > `svg_symbol(filenames*, options={})`
+### `svg_symbol(filenames, options={})`
 
-Takes a set of filenames and converts all the svg files into symbols within one
-svg for reuse in the document.
+Takes a single filename or list of filenames and converts all the given svg
+files into symbols within one svg tag. This is useful for reuse in the document
+with the `<use>` tag (see `svg_use` below).
+
+Takes a hash of parameters. The specified keys in the hash change behavior, all
+other keys are added as parameters to the parent `<svg>` tag.
+
+* `:folder` — If set to true, the method will look for a folder(s) and symbolize
+  all svg files within it(them). Each symbol tag will have the `id` attribute
+  set to the original file name of each svg file.
+* `:each` — If this is set to a hash, all key-value pairs passed in will appear
+  as attributes on each `<symbol>` tag.
+
 
 #### Usage (ERB)
 
 ```
 <!-- 1 -->
-<%= svg_symbol 'circle', 'square', class: 'shapes' %>
+<%= svg_symbol 'circle', class: 'shapes' %>
 
 <!-- 2 -->
+<%= svg_symbol ['circle', 'square'], class: 'shapes', each: {class: 'shape'} %>
+
+<!-- 3 -->
 <!-- folder contains circle.svg, square.svg, and triangle.svg -->
 <%= svg_symbol 'all-my-shapes', folder: true %>
 
-<!-- 3 -->
+<!-- 4 -->
 <%= svg_symbol 'all-my-shapes', folder: true do |symbol, attributes| %>
   <%= symbol id: attributes.id + '-logo', class: 'shape' %>
 <% end %>
@@ -83,17 +97,24 @@ svg for reuse in the document.
 
 ```
 <!-- 1 -->
-
 <svg class="shapes">
   <symbol id="circle" (existing attributes on circle.svg <svg> tag...)>
     <!-- Contents of circle.svg file -->
   </symbol>
-  <symbol id="square" (existing attributes on square.svg <svg> tag...)>
+</svg>
+
+
+<!-- 2 -->
+<svg class="shapes">
+  <symbol id="circle" class="shape" ...)>
+    <!-- Contents of circle.svg file -->
+  </symbol>
+  <symbol id="square" class="shape" ...)>
     <!-- Contents of square.svg file -->
   </symbol>
 </svg>
 
-<!-- 2 -->
+<!-- 3 -->
 <svg>
   <symbol id="circle" ...>
     <!-- Contents of circle.svg file -->
@@ -107,7 +128,7 @@ svg for reuse in the document.
 </svg>
 
 
-<!-- 3 -->
+<!-- 4 -->
 <svg>
   <symbol id="circle-logo" class="shape" ...>
     <!-- Contents of circle.svg file -->
