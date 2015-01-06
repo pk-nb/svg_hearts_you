@@ -1,4 +1,4 @@
-Copyright (c) 2014 Nathanael Beisiegel
+Copyright (c) 2015 Nathanael Beisiegel
 
 MIT License
 

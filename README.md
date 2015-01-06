@@ -1,3 +1,5 @@
+<img src="https://cloud.githubusercontent.com/assets/1911028/5623119/0145adf6-951c-11e4-922b-026db7584cd6.png" width="170px" height="228">
+
 # SVG ❤’s You
 
 SVG that you can target with CSS is really great for icons and fun illustrations, but it can be a big headache to get into the DOM from a file made in an editor. It becomes even more clumsy when you want to tweak that file back in a vector image editor and then have to re-copy everything back into the appropriate places. I got sick of doing this, so I created this gem to help include SVG files at the view level.
@@ -42,7 +44,12 @@ SvgHeartsYou.configure do |config|
 end
 ```
 
+If you are using middleman, you will need to activate the extension to include
+the helpers (and optionally set the `svg_paths` this way as well). In config.rb:
 
+```
+activate :svg_hearts_you, svg_paths: '/some/absolute/path'
+```
 
 ## Usage
 

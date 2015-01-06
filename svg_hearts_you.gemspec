@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{A heartwarming gem to inline SVG. SVG Hearts You provides helper
                           methods to inline SVG. You can directly inline for maximum CSS control,
                           or symbolize a file or folder of SVGs and reuse the symbols. }
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/pk-nb/svg_hearts_you'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -25,24 +25,22 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'rails', '~> 4'
   spec.add_development_dependency 'bundler', '~> 1.6'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'rspec-html-matchers'
-  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rake', '~> 10.3'
+  spec.add_development_dependency 'rspec', '~> 3.1'
+  spec.add_development_dependency 'rspec-html-matchers', '~> 0.6'
+  spec.add_development_dependency 'pry', '~> 0.10'
 
   # Middleman Test Dummy Dependencies
-  spec.add_development_dependency 'middleman-core', '>= 3.2'
-  spec.add_development_dependency 'sprockets'
+  spec.add_development_dependency 'middleman-core', '~> 3.2'
+  spec.add_development_dependency 'sprockets', '~> 2.12'
   spec.add_development_dependency 'cucumber',  '~> 1.3'
   spec.add_development_dependency 'aruba',     '~> 0.6'
   spec.add_development_dependency 'coveralls', '~> 0.7'
 
   # Rails Dummy Dependencies
-  spec.add_development_dependency 'sqlite3'
-  spec.add_development_dependency 'rspec-rails'
-  spec.add_development_dependency 'capybara'
-  spec.add_development_dependency 'launchy'
-  spec.add_development_dependency 'factory_girl_rails'
-  spec.add_development_dependency 'slim'
-  spec.add_development_dependency 'slim-rails'
+  spec.add_development_dependency 'sqlite3', '~> 1.3'
+  spec.add_development_dependency 'rspec-rails', '~> 3.1'
+  spec.add_development_dependency 'capybara', '~> 2.4'
+  spec.add_development_dependency 'launchy', '~> 2.4'
+  spec.add_development_dependency 'factory_girl_rails', '~> 4.4'
 end

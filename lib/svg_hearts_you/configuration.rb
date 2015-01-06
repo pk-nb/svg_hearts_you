@@ -19,9 +19,5 @@ module SvgHeartsYou
     def rails_paths
       Rails.application.config.assets.paths
     end
-
-    # def middleman_paths
-    #
-    # end
   end
 end

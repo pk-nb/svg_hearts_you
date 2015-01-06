@@ -2,12 +2,6 @@ require 'nokogiri'
 
 module SvgHeartsYou
 
-  # def self.read_file(filename)
-  #   path = File.join configuration.svg_path, filename
-  #   raise "File #{filename} not found" unless File.exists?(path)
-  #   File.read path
-  # end
-
   def self.find_svg_file(filename)
     configuration.all_svg_paths.each do |path|
       file_path = File.join path, filename
@@ -103,7 +97,6 @@ module SvgHeartsYou
           node.delete attr
         end
 
-
         if block_given?
           attributes = {}
           node.entries.each do |item|
@@ -117,7 +110,6 @@ module SvgHeartsYou
             node[key.to_s] = value
           end
         end
-
 
         wrapper_svg.add_child(node)
       end
@@ -154,7 +146,6 @@ module SvgHeartsYou
       options.each do |key, value|
         svg[key.to_s] = value
       end
-
 
       stringify(svg)
     end
