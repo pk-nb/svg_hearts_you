@@ -107,6 +107,11 @@ RSpec.describe SvgHeartsYou do
         expect(svg_content).not_to include('<xml')
         expect(svg_content).not_to include('DOCTYPE')
       end
+
+      it 'can be called without the .svg extension' do
+        svg_content = subject.svg_inline 'sapphire'
+        expect(svg_content).to have_tag('svg')
+      end
     end
 
     describe '#svg_use' do

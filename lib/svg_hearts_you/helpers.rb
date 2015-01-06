@@ -35,6 +35,9 @@ module SvgHeartsYou
   module Helpers
 
     def svg_inline(filename, options={})
+      # Add .svg extension if missing
+      filename += '.svg' unless filename.end_with?('.svg')
+
       svg_file = SvgHeartsYou::find_svg_file(filename)
 
       doc = Nokogiri::HTML::DocumentFragment.parse(svg_file)
