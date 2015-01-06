@@ -1,5 +1,8 @@
-<%= svg_symbol 'all-my-shapes', folder: true, each: {viewbox: '0, 0, 100, 100'} %>
+<%= svg_symbol ['shapes', 'logos'], folder: true, each: {viewbox: '0, 0, 100, 100'} %>
 
-<%= svg_symbol 'all-my-shapes', folder: true do |symbol, attributes| %>
-  <% symbol id: attributes.id + '-logo', class: 'shape' %>
+<%= svg_symbol 'shapes', folder: true do |attributes| %>
+  <% attributes[:id] = attributes[:id] + '-logo' %>
+  <% attributes[:class] = 'shape' %>
 <% end %>
+
+<%= svg_use 'logout-icon' %>

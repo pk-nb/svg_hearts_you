@@ -51,7 +51,7 @@ module SvgHeartsYou
         svg[key.to_s] = value
       end
 
-      svg.to_html.html_safe
+      stringify(svg)
     end
 
     def svg_symbol(filename, options={})
@@ -129,16 +129,19 @@ module SvgHeartsYou
         wrapper_svg[key.to_s] = value
       end
 
-      wrapper_svg.to_html.html_safe
+      stringify(wrapper_svg)
     end
 
     def svg_use(id, options={})
       # Strip .svg extension if necessary
       id.gsub!(/\.svg\z/, '')
 
+      # Add hash symbol to beginning if necessary
+      id = '#' + id unless id.include?('#')
+
       doc = Nokogiri::HTML::DocumentFragment.parse <<-YAYUSE
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <use xlink:href="##{id}">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <use xlink:href="#{id}">
       </svg>
       YAYUSE
 
@@ -152,7 +155,15 @@ module SvgHeartsYou
         svg[key.to_s] = value
       end
 
-      svg.to_html.html_safe
+
+      stringify(svg)
+    end
+
+    private
+    def stringify(node)
+      str = node.to_html
+      str = str.html_safe if str.respond_to? :html_safe
+      str
     end
   end
 

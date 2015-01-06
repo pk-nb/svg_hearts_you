@@ -36,23 +36,28 @@ RSpec.describe SvgHeartsYou do
   # Tests that are used in both unconfigured and configured contexts
   shared_examples 'svg use' do
     it 'returns SVG use statement' do
+      svg_content = subject.svg_use '#id'
+      expect(svg_content).to include '<use xlink:href="#id">'
+    end
+
+    it 'adds hash at beginning if not given or external link' do
       svg_content = subject.svg_use 'id'
       expect(svg_content).to include '<use xlink:href="#id">'
     end
 
     it 'adds classes and ids to svg tag' do
-      svg_content = subject.svg_use 'id', id: 'hearts', class: 'love'
+      svg_content = subject.svg_use '#id', id: 'hearts', class: 'love'
       expect(svg_content).to have_tag('svg', with: { id: 'hearts', class: 'love' })
     end
 
     it 'adds any attribute to svg tag' do
       attributes = { width: '64px', height: '48px', viewport: '0, 0, 12, 24' }
-      svg_content = subject.svg_use 'id', attributes
+      svg_content = subject.svg_use '#id', attributes
       expect(svg_content).to have_tag('svg', with: attributes)
     end
 
     it 'strips .svg extension if necessary' do
-      svg_content = subject.svg_use 'circle.svg'
+      svg_content = subject.svg_use '#circle.svg'
       expect(svg_content).to include '<use xlink:href="#circle">'
       expect(svg_content).to_not include '<use xlink:href="#circle.svg">'
     end

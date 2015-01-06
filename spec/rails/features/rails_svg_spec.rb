@@ -35,7 +35,6 @@ RSpec.describe 'SvgHeartsYou for Rails:', type: :feature do
     end
 
     it '#svg_symbol' do
-      # save_and_open_page
       expect(page).to have_selector('symbol', visible: false)
     end
 
@@ -49,6 +48,9 @@ RSpec.describe 'SvgHeartsYou for Rails:', type: :feature do
       visit '/folder'
     end
 
-    # it 'finds a folder and return'
+    it 'symbolizes folders' do
+      expect(page).to have_css('svg>symbol', visible: false, minimum: 8)
+      # save_and_open_page
+    end
   end
 end
